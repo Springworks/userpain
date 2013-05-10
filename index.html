@@ -108,7 +108,7 @@
 		<p>"User Pain is a technique that involves sorting bugs on a single unified scale that takes into account common bug ranking criteria. It will reduce the cost of bug triage, help teams ship on time and greatly clarify which bugs you should be fixing right now." - danc@lostgarden</p>
 	</div>
 
-	<div class="sizteen columns clearfix">
+	<div class="sixteen columns clearfix">
 		<!-- In nested columns give the first column a class of alpha
 		and the second a class of omega -->
 		<div class="eight columns alpha">
@@ -123,17 +123,17 @@
 						<option value="type3">5: Minor usability: Impairs usability in secondary scenarios.</option>
 						<option value="type4">4: Balancing: Enables degenerate usage strategies that harm the experience.</option>
 						<option value="type5">3: Visual and Sound Polish: Aesthetic issues</option>
-						<option value="type6">2: Localization</option>
-						<option value="type7">1: Documentation</option>
+						<option value="type6">2: Localization: Incorrectly translated text</option>
+						<option value="type7">1: Documentation: Incorrect and/or missing documentation</option>
 					</select>
 
 					<h3 for="priorityList">Priority</h3>
 					<select id="priorityList" onchange="calculate_pain(false)">
 						<option value="priority1">5: Blocking further progress on the daily build.</option>
-						<option value="priority2">4: A User would return the product. Cannot RTM. The Team would hold the release for this bug.</option>
-						<option value="priority3">3: A User would likely not purchase the product. Will show up in review. Clearly a noticeable issue.</option>
+						<option value="priority2">4: A user would return the product. Cannot release to market. The Team would hold the release for this bug.</option>
+						<option value="priority3">3: A user would likely not purchase the product. Will show up in review. Clearly a noticeable issue.</option>
 						<option value="priority4">2: A Pain – users won’t like this once they notice it. A moderate number of users won’t buy.</option>
-						<option value="priority5">1: Nuisance – not a big deal but noticeable. Extremely unlikely to affect sales.</option>
+						<option value="priority5">1: Nuisance – not a big deal but noticeable. Unlikely to affect sales.</option>
 					</select>
 
 					<h3 for="likelihoodList">Likelihood</h3>
