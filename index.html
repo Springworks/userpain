@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>Userpain</title>
+	<meta name="description" content="Calculate user pain, developed by Simon Kotlinski at Springworks AB">
+	<meta name="author" content="Simon Kotlinski">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="stylesheets/base.css">
+	<link rel="stylesheet" href="stylesheets/skeleton.css">
+	<link rel="stylesheet" href="stylesheets/layout.css">
+
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+	<![endif]-->
+
+	<!-- Favicons
+	================================================== -->
+	<!--link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"-->
+	<style>
+		body{
+			background: #fff url(images/background.png) top left no-repeat;
+		}
+		a{
+
+			display: block; /* or inline-block; I think IE would respect it since a link is an inline-element */
+			background: #fff url(images/arrow.png) center left no-repeat;
+			background-size:25px 12px;
+			text-align: left;
+			padding-left: 28px;
+		}
+
+
+	</style>
+
+	
+	<script type="text/javascript">
+
+
+		function calculate_pain(showSelections) {
+			var aType=document.getElementById("typeList");
+			var aPriority=document.getElementById("priorityList");
+			var aLikelihoodList=document.getElementById("likelihoodList");
+			var outputParagraph=document.getElementById("outputParagraph");
+
+			var iTypeIndex=aType.selectedIndex;
+			var aTypeOptions=aType.options;
+
+			var iPrioIndex=aPriority.selectedIndex;
+			var aPrioOptions=aPriority.options;
+
+			var iLikelihoodIndex=aLikelihoodList.selectedIndex;
+			var aLikelihoodOptions=aLikelihoodList.options;
+
+			var iType = (aTypeOptions.length - aTypeOptions[iTypeIndex].index);
+			var iPrio = (aPrioOptions.length - aPrioOptions[iPrioIndex].index);
+			var iLikely = (aLikelihoodOptions.length - aLikelihoodOptions[iLikelihoodIndex].index);
+			var sOutput = "" + Math.round((iType*iPrio*iLikely)/(aTypeOptions.length * aPrioOptions.length * aLikelihoodOptions.length)*100) + "%" ;
+			if(showSelections == true) {
+				sOutput += "\nType: " + iType + "\n";
+				sOutput += "Priority: " + iPrio + "\n";
+				sOutput += "Likelihood: " + iLikely + "\n";
+				outputParagraph.style.fontSize = "12px";
+			}
+			else {
+				outputParagraph.style.fontSize = "86px";
+			}
+			outputParagraph.innerHTML = sOutput;
+			//outputParagraph.innerHTML.text = outputParagraph.innerHTML.text.replace(/\n?/g, '<br />');
+			outputParagraph.style.visibility = "visible";
+			return false;
+		}
+	</script>
+
+</head>
+<body>
+
+
+
+<!-- Primary Page Layout
+	================================================== -->
+
+<!-- Delete everything in this .container and get started on your own site! -->
+
+<div class="container">
+	<div class="sixteen columns" style="background: url(images/nav_logo.png) right center no-repeat;">
+		<h2 class="remove-bottom" style="margin-top: 40px">User Pain</h2>
+		<h5>Version 1.0</h5>
+		<hr />
+	</div>
+
+	<div class="sixteen columns" style="font-style: italic">
+		<p>"User Pain is a technique that involves sorting bugs on a single unified scale that takes into account common bug ranking criteria. It will reduce the cost of bug triage, help teams ship on time and greatly clarify which bugs you should be fixing right now." - danc@lostgarden</p>
+	</div>
+
+	<div class="sizteen columns clearfix">
+		<!-- In nested columns give the first column a class of alpha
+		and the second a class of omega -->
+		<div class="eight columns alpha">
+			<form action="">
+				<!-- Label and select list -->
+				<div>
+					<h3 for="typeList">Type</h3>
+
+					<select class="full-width" id="typeList" onchange="calculate_pain(false)">
+						<option value="type1">7: Crash: Bug causes crash or data loss. Asserts in the Debug release.</option>
+						<option value="type2">6: Major usability: Impairs usability in key scenarios.</option>
+						<option value="type3">5: Minor usability: Impairs usability in secondary scenarios.</option>
+						<option value="type4">4: Balancing: Enables degenerate usage strategies that harm the experience.</option>
+						<option value="type5">3: Visual and Sound Polish: Aesthetic issues</option>
+						<option value="type6">2: Localization</option>
+						<option value="type7">1: Documentation</option>
+					</select>
+
+					<h3 for="priorityList">Priority</h3>
+					<select id="priorityList" onchange="calculate_pain(false)">
+						<option value="priority1">5: Blocking further progress on the daily build.</option>
+						<option value="priority2">4: A User would return the product. Cannot RTM. The Team would hold the release for this bug.</option>
+						<option value="priority3">3: A User would likely not purchase the product. Will show up in review. Clearly a noticeable issue.</option>
+						<option value="priority4">2: A Pain – users won’t like this once they notice it. A moderate number of users won’t buy.</option>
+						<option value="priority5">1: Nuisance – not a big deal but noticeable. Extremely unlikely to affect sales.</option>
+					</select>
+
+					<h3 for="likelihoodList">Likelihood</h3>
+					<select id="likelihoodList" onchange="calculate_pain(false)">
+						<option value="likelihood1">5: Will affect all users.</option>
+						<option value="likelihood2">4: Will affect most users.</option>
+						<option value="likelihood3">3: Will affect average number of users.</option>
+						<option value="likelihood4">2: Will only affect a few users.</option>
+						<option value="likelihood5">1: Will affect almost no one.</option>
+					</select>
+				</div>
+			</form>	
+		</div>
+		<div class="eight columns omega">
+			<h3 for="outputParagraph">User Pain</h3>
+			<textarea id="outputParagraph" class="eight columns omega" onclick="calculate_pain(true); this.focus(); this.select()" onblur="calculate_pain(false);" readonly="readonly" style="border: none; resize: none; outline: none;" style="max-width: 250px">100%</textarea>
+		</div>
+	</div>
+
+	<hr />
+	<div class="sixteen columns">
+		<p>
+			<a href="http://www.lostgarden.com/2008/05/improving-bug-triage-with-user-pain.html">Lostgarden about User Pain</a>
+			<a href="https://github.com/Springworks/UserPainCalculator">Chrome Extension that helps calculate User Pain</a>
+			<a href="http://www.springworks.se">Springworks</a>
+			<a href="http://www.getskeleton.com/#">Skeleton boilerplate</a>
+			<br/>
+			Original site by: Simon Kotlinski, simon(dot)kotlinski(at)springworks(dot)se<br/>Modified by: Björn Ritzl, bjorn(dot)ritzl(at)springworks(dot)se
+		</p>
+	</div>
+
+</div><!-- container -->
+
+
+<!-- End Document
+================================================== -->
+</body>
+</html>
